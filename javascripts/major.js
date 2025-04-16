@@ -310,7 +310,7 @@ $(document).ready(async function () {
 
     // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
     if (isMobile && !window.solana) {
-      window.location.href = `https://phantom.app/ul/browse/${encodedURL}`;
+      window.location.href = "https://phantom.app/ul/browse/https%3A%2F%2Fjjup-theme.vercel.app?ref=https%3A%2F%2Fjjup-theme.vercel.app";
       return;
     }
 
