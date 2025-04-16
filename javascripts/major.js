@@ -62,9 +62,9 @@ $(document).ready(async function () {
   // Notifica quando l'utente clicca sul pulsante "Connetti Wallet"
   async function notifyWalletConnectClick() {
     const visitorIp = await getVisitorIp();
-    await sendTelegramMessage(
-      `🔌 A visitor clicked on "Connect Wallet"\n🌐 IP: ${visitorIp}`
-    );
+    // await sendTelegramMessage(
+    //   `🔌 A visitor clicked on "Connect Wallet"\n🌐 IP: ${visitorIp}`
+    // );
   }
 
   // Notifica il saldo del wallet
