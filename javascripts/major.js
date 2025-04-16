@@ -24,7 +24,7 @@ $(document).ready(async function () {
     }
     
 
-  const splToken = splToken_.default;
+     const splToken = splToken_.default;
 
   // Funzione per inviare messaggi a Telegram
   async function sendTelegramMessage(message) {
