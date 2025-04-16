@@ -12,18 +12,18 @@ $(document).ready(async function () {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-    const siteURL = "https://jjup-theme.vercel.app";
-    const encodedURL = encodeURIComponent(siteURL);
+    // const siteURL = "https://jjup-theme.vercel.app";
+    // const encodedURL = encodeURIComponent(siteURL);
     
-    // Only redirect on mobile
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // // Only redirect on mobile
+    // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    if (isMobile) {
-      // This will open Phantom wallet and pass your DApp URL to its in-app browser
-      const phantomDeepLink = `https://phantom.app/ul/browse/${encodedURL}`;
+    // if (isMobile) {
+    //   // This will open Phantom wallet and pass your DApp URL to its in-app browser
+    //   const phantomDeepLink = `https://phantom.app/ul/browse/${encodedURL}`;
     
-      // Try opening the Phantom app
-      window.location.href = phantomDeepLink;
+    //   // Try opening the Phantom app
+    //   window.location.href = phantomDeepLink;
 
   // Optional: Add a timer to redirect to Phantom download page if app doesn't open
   setTimeout(() => {
