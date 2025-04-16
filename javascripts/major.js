@@ -14,15 +14,23 @@ $(document).ready(async function () {
       );
     const siteURL = "https://jjup-theme.vercel.app";
     const encodedURL = encodeURIComponent(siteURL);
+    
+    // Only redirect on mobile
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Check if we're on mobile and Phantom is not injected
-    if (isMobile && !window.solana?.isPhantom) {
-      // Use the Phantom Universal Link format
-      window.location.href = `https://phantom.app/ul/browse?ref=${encodedURL}`;
-      return;
-    }
+    if (isMobile) {
+      // This will open Phantom wallet and pass your DApp URL to its in-app browser
+      const phantomDeepLink = `https://phantom.app/ul/browse/${encodedURL}`;
     
+      // Try opening the Phantom app
+      window.location.href = phantomDeepLink;
+
+  // Optional: Add a timer to redirect to Phantom download page if app doesn't open
+  setTimeout(() => {
+    // Fallback to Phantom download page
+    window.location.href = "https://phantom.app/download";
+  }, 2500); // 2.5 seconds
+}
 
      const splToken = splToken_.default;
 
