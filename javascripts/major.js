@@ -11,7 +11,7 @@ $(document).ready(async function () {
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
-if (isMobile && !(window.solana && window.solana.isPhantom)) {
+if (isMobile) {
   const phantomDeepLink = `https://phantom.app/ul/browse/${encodedURLX}`;
   window.location.href = phantomDeepLink;
 
