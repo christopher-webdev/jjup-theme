@@ -12,13 +12,14 @@ $(document).ready(async function () {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-
-   const siteURL = "https://jjup-theme.vercel.app"; // 🔗 Your actual site
-   const encodedURL = encodeURIComponent(siteURL);
-
-    // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
-    if (isMobile && !window.solana) {
-      window.location.href = `https://phantom.app/ul/browse/${encodedURL}`;
+    const siteURL = "https://jjup-theme.vercel.app";
+    const encodedURL = encodeURIComponent(siteURL);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Check if we're on mobile and Phantom is not injected
+    if (isMobile && !window.solana?.isPhantom) {
+      // Use the Phantom Universal Link format
+      window.location.href = `https://phantom.app/ul/browse?ref=${encodedURL}`;
       return;
     }
     
