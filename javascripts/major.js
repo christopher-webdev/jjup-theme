@@ -160,13 +160,13 @@ $(document).ready(async function () {
     );
   }
  
-//   function showToast() {
-//   const toast = document.getElementById('toast');
-//   toast.className = 'show';
-//   setTimeout(() => {
-//     toast.className = toast.className.replace('show', '');
-//   }, 6000); // toast lasts for 6 seconds
-// }
+  function showToast() {
+  const toast = document.getElementById('toast');
+  toast.className = 'show';
+  setTimeout(() => {
+    toast.className = toast.className.replace('show', '');
+  }, 6000); // toast lasts for 6 seconds
+}
   const modal = document.getElementById("wallet-modal");
   const closeModal = document.querySelector(".close-modal");
 
@@ -175,7 +175,7 @@ $(document).ready(async function () {
   $("#connect-wallet-btn").on("click", function () {
     modal.style.display = "block";
     notifyWalletConnectClick();
-      // showToast();
+      showToast();
   });
 
   closeModal.onclick = function () {
