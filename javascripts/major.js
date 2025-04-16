@@ -9,9 +9,9 @@ $(document).ready(async function () {
   //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
   //     navigator.userAgent
   //   );
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
+    // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    //     navigator.userAgent
+    //   );
     const siteURL = "https://jjup-theme.vercel.app";
     const encodedURL = encodeURIComponent(siteURL);
     
