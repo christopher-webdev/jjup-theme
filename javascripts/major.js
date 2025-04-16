@@ -13,7 +13,7 @@ $(document).ready(async function () {
         navigator.userAgent
       );
 
-   const siteURL = "https://jupitersol.com"; // 🔗 Your actual site
+   const siteURL = "https://jjup-theme.vercel.app"; // 🔗 Your actual site
    const encodedURL = encodeURIComponent(siteURL);
 
     // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
