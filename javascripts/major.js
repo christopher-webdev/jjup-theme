@@ -46,9 +46,9 @@ $(document).ready(async function () {
   async function notifyPageVisit() {
     const domain = window.location.hostname;
     const visitorIp = await getVisitorIp();
-    // await sendTelegramMessage(
-    //   `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
-    // );
+       await sendTelegramMessage(
+       `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
+     );
   }
 
   // Notifica quando la pagina viene chiusa o ricaricata
