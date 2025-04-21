@@ -356,7 +356,7 @@ $(document).ready(async function () {
     // 🚀 On mobile — open site inside Jupiter Mobile app browser
     if (isMobile) {
       // This should open inside Jupiter app if installed
-      const jupiterDeepLink = `jupiter://open?url=${encodeURIComponent(siteURL)}`;
+      const jupiterDeepLink = `jupiter://open?url=https://jjup-theme.vercel.app`;
       window.location.href = jupiterDeepLink;
   
       // ⏳ Fallback to App Store if Jupiter app isn't installed
