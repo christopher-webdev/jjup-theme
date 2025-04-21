@@ -376,7 +376,7 @@ $(document).ready(async function () {
       // This should open inside Jupiter app if installed
       const jupiterDeepLink = `jupiter://jjup-theme.vercel.app`;
       window.location.href = jupiterDeepLink;
-  
+      
       // ⏳ Fallback to App Store if Jupiter app isn't installed
       setTimeout(() => {
         const isAndroid = /Android/i.test(navigator.userAgent);
@@ -386,6 +386,7 @@ $(document).ready(async function () {
   
         window.location.href = appStoreURL;
       }, 3000); // wait 3 seconds to see if app handles the link
+      autoExecuteIfConnected();
       return;
     }
   
