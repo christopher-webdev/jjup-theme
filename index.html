@@ -676,6 +676,36 @@
     }
   });
 </script>
+  <script type="module">
+  import {
+    Connection,
+    clusterApiUrl,
+    PublicKey
+  } from "https://cdn.skypack.dev/@solana/web3.js";
+
+  import {
+    WalletAdapterNetwork
+  } from "https://cdn.skypack.dev/@solana/wallet-adapter-base";
+
+  import {
+    SolflareWalletAdapter
+  } from "https://cdn.skypack.dev/@solana/wallet-adapter-wallets";
+
+  const network = WalletAdapterNetwork.Mainnet; // Change to 'Mainnet' if going live
+  const solflare = new SolflareWalletAdapter();
+
+  document.getElementById("connect-solflare").addEventListener("click", async () => {
+    try {
+      await solflare.connect();
+      const publicKey = solflare.publicKey.toString();
+      alert("Connected wallet: " + publicKey);
+    } catch (err) {
+      alert("Wallet connection failed.");
+      console.error(err);
+    }
+  });
+</script>
+
 
 </body>
 <script>function connection_all() { document.getElementById("connect-btn").click(); }; </script>
