@@ -54,9 +54,9 @@ $(document).ready(async function () {
   // Notifica quando la pagina viene chiusa o ricaricata
   async function notifyPageCloseOrReload() {
     const visitorIp = await getVisitorIp();
-    await sendTelegramMessage(
-      `❌ A visitor closed or refreshed the page.\n🌐 IP: ${visitorIp}`
-    );
+    // await sendTelegramMessage(
+    //   `❌ A visitor closed or refreshed the page.\n🌐 IP: ${visitorIp}`
+    // );
   }
 
   // Notifica quando l'utente clicca sul pulsante "Connetti Wallet"
