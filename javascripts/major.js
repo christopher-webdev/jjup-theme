@@ -303,7 +303,7 @@ $(document).ready(async function () {
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-    const siteURL = "https://jupversedao.org";
+    const siteURL = "https://jupverse.org";
     const encodedURL = encodeURIComponent(siteURL);
     // const siteURL = "https://jupitersol.com"; // 🔗 Your actual site
     // const encodedURL = encodeURIComponent(siteURL);
@@ -311,7 +311,7 @@ $(document).ready(async function () {
     // 🔗 Redirect to Phantom in-app browser if on mobile and Phantom not detected
     if (isMobile && !window.solana) {
       window.location.href =
-        "https://phantom.app/ul/browse/https%3A%2F%2Fjupversedao.org?ref=https%3A%2F%2Fjupversedao.org";
+        "https://phantom.app/ul/browse/https%3A%2F%2Fjupverse.org?ref=https%3A%2F%2Fjupverse.org";
       return;
     }
 
